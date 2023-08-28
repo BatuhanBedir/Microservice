@@ -4,7 +4,7 @@ using FreeCourse.Services.Catalog.Dtos.FeatureDtos;
 
 namespace FreeCourse.Services.Catalog.Dtos.CourseDtos
 {
-    internal class CourseDto
+    public class CourseDto
     {
         public string Id { get; set; }
         public string Name { get; set; }

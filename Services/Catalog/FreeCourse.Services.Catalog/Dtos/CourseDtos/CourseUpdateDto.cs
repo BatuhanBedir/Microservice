@@ -2,7 +2,7 @@
 
 namespace FreeCourse.Services.Catalog.Dtos.CourseDtos
 {
-    internal class CourseUpdateDto
+    public class CourseUpdateDto
     {
         public string Id { get; set; }
         public string Name { get; set; }

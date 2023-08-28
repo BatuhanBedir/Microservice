@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace FreeCourse.Services.Catalog.Services.CourseService
 {
-    internal class CourseService : ICourseService
+    public class CourseService : ICourseService
     {
         private readonly IMongoCollection<Course> _courseCollection;
         private readonly IMongoCollection<Category> _categoryCollection;
@@ -98,7 +98,7 @@ namespace FreeCourse.Services.Catalog.Services.CourseService
         {
             var result = await _courseCollection.DeleteOneAsync(x => x.Id == Id);
             return result.DeletedCount > 0
-                ? Response<NoContent>.Succes(200)
+                ? Response<NoContent>.Succes(204)
                 : Response<NoContent>.Fail("Course not found", 404);
         }
     }
