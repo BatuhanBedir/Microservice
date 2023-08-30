@@ -9,7 +9,7 @@ namespace FreeCourse.Shared.ControllerBasic
         {
             return new ObjectResult(reponse)
             {
-                StatusCode = Response.StatusCode
+                StatusCode = reponse.StatusCode
             };
         }
 
