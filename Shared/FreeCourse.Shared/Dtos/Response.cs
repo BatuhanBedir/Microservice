@@ -16,17 +16,22 @@ namespace FreeCourse.Shared.Dtos
         public List<string> Errors { get; set; }
 
         //static factory method
-        public static Response<T> Succes(T data, int statusCode)
+        public static Response<T> Success(T data, int statusCode)
         {
             return new Response<T> { Data = data, StatusCode = statusCode, IsSuccessful = true };
         }
-        public static Response<T> Succes(int statusCode)
+        public static Response<T> Success(int statusCode)
         {
             return new Response<T> { Data = default(T), StatusCode = statusCode, IsSuccessful = true };
         }
         public static Response<T> Fail(List<string> errors, int statusCode)
         {
-            return new Response<T> { StatusCode = statusCode, Errors = errors, IsSuccessful = false };
+            return new Response<T>
+            {
+                Errors = errors,
+                StatusCode = statusCode,
+                IsSuccessful = false
+            };
         }
         public static Response<T> Fail(string error, int statusCode)
         {
