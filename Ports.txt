@@ -5,7 +5,6 @@ Services
 	-discountAPI=> 5014
 	-orderAPI=> 5015
 	-fakepaymentAPI=> 5016
-
 identityServer=> 5001
-
 gateway=> 5000
+web=> 5010
