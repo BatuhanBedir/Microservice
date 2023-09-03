@@ -31,12 +31,21 @@ namespace FreeCourse.Web
             services.Configure<ClientSettings>(Configuration.GetSection("ClientSettings"));
             services.Configure<ServiceApiSettings>(Configuration.GetSection("ServiceApiSettings"));
             services.AddHttpContextAccessor();
+            services.AddScoped<ISharedIdentityService, SharedIdentityService>();
 
             var serviceApiSettings = Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
 
-            services.AddScoped<ResourceOwnerPasswordTokenHandler>();
+            //içerisinde httpclient kullanýlýyor.
+            services.AddHttpClient<IClientCredentialTokenService, ClientCredentialTokenService>();
 
+            services.AddScoped<ResourceOwnerPasswordTokenHandler>();
+            services.AddScoped<ClientCredentialTokenService>();
             services.AddHttpClient<IIdentityService, IdentityService>();
+
+            services.AddHttpClient<ICatalogService, CatalogService>(opt =>
+            {
+                opt.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUri}/{serviceApiSettings.Catalog.Path}");
+            }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
 
             //userservice'i içerisinde herhangi bir client kullanýldýgýnda(istek) bu handler'ý calýþtýr
             services.AddHttpClient<IUserService, UserService>(opt =>
