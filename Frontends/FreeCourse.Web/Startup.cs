@@ -34,6 +34,8 @@ namespace FreeCourse.Web
 
             var serviceApiSettings = Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
 
+            services.AddScoped<ResourceOwnerPasswordTokenHandler>();
+
             services.AddHttpClient<IIdentityService, IdentityService>();
 
             //userservice'i içerisinde herhangi bir client kullanýldýgýnda(istek) bu handler'ý calýþtýr
