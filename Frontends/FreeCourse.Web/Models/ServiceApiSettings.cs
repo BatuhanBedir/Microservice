@@ -7,6 +7,7 @@
         public string PhotoStockUri { get; set; } //read
         public ServiceApi Catalog { get; set; }
         public ServiceApi PhotoStock { get; set; } //upload-delete
+        public ServiceApi Basket { get; set; }
     }
 
     public class ServiceApi
