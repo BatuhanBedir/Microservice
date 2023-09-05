@@ -22,7 +22,8 @@ namespace FreeCourse.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _catalogService.GetAllCourseByUserIdAsync(_sharedIdentityService.GetUserId));
+            var a = await _catalogService.GetAllCourseByUserIdAsync(_sharedIdentityService.GetUserId);
+            return View(a);
         }
 
         public async Task<IActionResult> Create()

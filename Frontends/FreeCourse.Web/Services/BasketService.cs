@@ -11,18 +11,20 @@ namespace FreeCourse.Web.Services
     public class BasketService : IBasketService
     {
         private readonly HttpClient _httpClient;
+        private readonly IDiscountService _discoutService;
 
-        public BasketService(HttpClient httpClient)
+        public BasketService(HttpClient httpClient, IDiscountService discoutService)
         {
             _httpClient = httpClient;
+            _discoutService = discoutService;
         }
 
         public async Task AddBasketItemAsync(BasketItemViewModel basketItemViewModel)
         {
             var basket = await GetAsync();
-            if(basket is not null)
+            if (basket is not null)
             {
-                if(!basket.BasketItems.Any(x=>x.CourseId == basketItemViewModel.CourseId))
+                if (!basket.BasketItems.Any(x => x.CourseId == basketItemViewModel.CourseId))
                 {
                     basket.BasketItems.Add(basketItemViewModel);
                 }
@@ -35,14 +37,30 @@ namespace FreeCourse.Web.Services
             await SaveOrUpdateAsync(basket);
         }
 
-        public Task<bool> ApplyDiscount(string discountCode)
+        public async Task<bool> ApplyDiscount(string discountCode)
         {
-            throw new System.NotImplementedException();
+            await CancelApplyDiscount();
+
+            var basket= await GetAsync();
+            if (basket is null) return false;
+
+            var hasDiscount = await _discoutService.GetDiscount(discountCode);
+
+            if(hasDiscount is null) return false;
+
+            basket.ApplyDiscount(hasDiscount.Code, hasDiscount.Rate);
+
+            return await SaveOrUpdateAsync(basket);
         }
 
-        public Task<bool> CancelApplyDiscount()
+        public async Task<bool> CancelApplyDiscount()
         {
-            throw new System.NotImplementedException();
+            var basket = await GetAsync();
+            if (basket is null || basket.DiscountCode is null) return false;
+
+            basket.CancelDiscount();
+
+            return await SaveOrUpdateAsync(basket);
         }
 
         public async Task<bool> DeleteAsync()
