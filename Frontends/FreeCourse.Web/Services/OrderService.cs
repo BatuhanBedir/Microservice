@@ -57,7 +57,7 @@ namespace FreeCourse.Web.Services
                 var orderItem = new OrderItemCreateInput
                 {
                     ProductId = x.CourseId,
-                    Price = x.Price,
+                    Price = x.GetCurrentPrice,
                     ProductName = x.CourseName
                 };
                 orderCreateInput.OrderItems.Add(orderItem);
@@ -67,7 +67,14 @@ namespace FreeCourse.Web.Services
 
             if(!response.IsSuccessStatusCode) return new OrderCreatedViewModel() { Error = "Sipariş Oluşturulamadı", IsSuccessful = false };
 
-            return await response.Content.ReadFromJsonAsync<OrderCreatedViewModel>();
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            var orderCreatedViewModel = await response.Content.ReadFromJsonAsync<Response<OrderCreatedViewModel>>();
+         
+            orderCreatedViewModel.Data.IsSuccessful = true;
+
+            await _basketService.DeleteAsync();
+            return orderCreatedViewModel.Data;
         }
 
         public async Task<List<OrderViewModel>> GetOrder()

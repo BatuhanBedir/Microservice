@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace FreeCourse.Web.Services
+namespace FreeCourse.Web.Services.Interfaces
 {
     public interface IOrderService
     {
