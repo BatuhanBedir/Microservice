@@ -14,7 +14,7 @@
       "UpstreamScheme": "http",
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "GatewayAuthenticationScheme", //api yimi korudum
-        "AllowedScopes": ["catalog_fullpermission"] //hangi ms'ye istek yapmak istiyor? scopelarinda catalog_fullpermission olacak
+        "AllowedScopes": [ "catalog_fullpermission" ] //hangi ms'ye istek yapmak istiyor? scopelarinda catalog_fullpermission olacak
       }
     },
     {
@@ -30,8 +30,8 @@
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
       "UpstreamScheme": "http",
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "GatewayAuthenticationScheme", 
-        "AllowedScopes": [ "photo_stock_fullpermission" ] 
+        "AuthenticationProviderKey": "GatewayAuthenticationScheme",
+        "AllowedScopes": [ "photo_stock_fullpermission" ]
       }
     },
     {
@@ -63,9 +63,9 @@
       "UpstreamPathTemplate": "/services/discount/{everything}",
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
       "UpstreamScheme": "http",
+      "DelegatingHandlers": [ "TokenExchangeDelegateHandler" ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "GatewayAuthenticationScheme",
-        "AllowedScopes": [ "discount_fullpermission" ]
+        "AuthenticationProviderKey": "GatewayAuthenticationScheme"
       }
     },
     {
@@ -97,9 +97,9 @@
       "UpstreamPathTemplate": "/services/fakepayment/{everything}",
       "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
       "UpstreamScheme": "http",
+      "DelegatingHandlers": [ "TokenExchangeDelegateHandler" ],
       "AuthenticationOptions": {
-        "AuthenticationProviderKey": "GatewayAuthenticationScheme",
-        "AllowedScopes": [ "payment_fullpermission" ]
+        "AuthenticationProviderKey": "GatewayAuthenticationScheme"
       }
     }
   ],
